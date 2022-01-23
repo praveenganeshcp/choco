@@ -5,14 +5,22 @@
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "scripts": {
-    "build": "tsc --project ./"
+    "build": "tsc --project ./",
+    "watch": "tsc --project ./ -w",
+    "dev": "nodemon ./lib/index.js"
   },
-  "files": ["./lib/"],
+  "files": [
+    "./lib/"
+  ],
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "nodemon": "^2.0.15",
     "typescript": "^4.5.5"
   },
-  "private": true
+  "private": true,
+  "dependencies": {
+    "@types/node": "^17.0.10"
+  }
 }
