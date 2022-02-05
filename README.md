@@ -1,2 +1,7 @@
+> *NOTE: THIS IS A LEARNING PROJECT*
+
 # choco
-A minimal Typescript based REST API framework
+
+## REST API Framework for Typescript and Javascript
+
+This framework is built from scratch using native node.js modules
