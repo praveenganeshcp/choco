@@ -1,10 +1,11 @@
+import { ChocoRequest, ChocoResponse } from './http/models';
 import { httpServer, Get } from './index';
 
 class UserController {
 
     @Get('/test')
-    getUser() {
-        return {success: true};
+    getUser(req: ChocoRequest, res: ChocoResponse) {
+        res.sendJSON({sccess:"ello", method: req.getMethod()})
     }
 }
 

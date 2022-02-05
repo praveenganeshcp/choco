@@ -1,5 +1,6 @@
-import { IncomingMessage, ServerResponse } from 'http';
+import { ChocoRequest } from './request';
+import { ChocoResponse } from './response';
 
 export interface HttpHandler {
-    (request: IncomingMessage, response: ServerResponse): any;
+    (request: ChocoRequest, response: ChocoResponse): void;
 }

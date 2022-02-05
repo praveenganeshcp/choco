@@ -1,5 +1,6 @@
 import { createServer } from 'http';
 import { postMapping, getMapping, putMapping, deletetMapping, Get, Post, Put, Delete } from './http/decorators';
+import { ChocoRequest, ChocoResponse } from './http/models';
 
 const httpServer = createServer((req, res) => {
     try {
@@ -7,12 +8,12 @@ const httpServer = createServer((req, res) => {
         res.setHeader('Content-Type', 'application/json');
         const handlerNotFound = { message: `Handler not found for ${method} : ${url}` };
         const methodNotSupported = { message: `${method} not supported` };
+        const request = new ChocoRequest(req);
+        const response = new ChocoResponse(res);
         if(method === 'GET') {
             const handler = getMapping.get(url as string);
             if(handler) {
-                const response = handler(req, res);
-                res.write(JSON.stringify(response));
-                res.end();
+                handler(request, response);
             }
             else {
                 res.write(JSON.stringify(handlerNotFound));
@@ -22,9 +23,7 @@ const httpServer = createServer((req, res) => {
         else if(method === 'POST') {
             const handler = postMapping.get(url as string);
             if(handler) {
-                const response = handler(req, res);
-                res.write(JSON.stringify(response));
-                res.end();
+                handler(request, response);
             }
             else {
                 res.write(JSON.stringify(handlerNotFound));
@@ -34,9 +33,7 @@ const httpServer = createServer((req, res) => {
         else if(method === 'PUT') {
             const handler = putMapping.get(url as string);
             if(handler) {
-                const response = handler(req, res);
-                res.write(JSON.stringify(response));
-                res.end();
+                handler(request, response);
             }
             else {
                 res.write(JSON.stringify(handlerNotFound));
@@ -46,9 +43,7 @@ const httpServer = createServer((req, res) => {
         else if(method === 'DELETE') {
             const handler = deletetMapping.get(url as string);
             if(handler) {
-                const response = handler(req, res);
-                res.write(JSON.stringify(response));
-                res.end();
+                handler(request, response);
             }
             else {
                 res.write(JSON.stringify(handlerNotFound));
