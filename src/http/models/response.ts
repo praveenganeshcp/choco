@@ -14,7 +14,7 @@ export class ChocoResponse {
     }
 
     sendJSON(response: Object, status: number=200) {
-        this.response.write(JSON.stringify(response));
+        this.response.setHeader('Content-Type', 'application/json').write(JSON.stringify(response));
         this.response.end();
     }
 
