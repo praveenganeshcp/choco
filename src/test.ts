@@ -2,14 +2,14 @@ import { httpServer, Get, ChocoRequest, ChocoResponse } from './index';
 
 class UserController {
 
-    @Get('/test/:ss')
+    @Get('/users')
     getUser(req: ChocoRequest, res: ChocoResponse) {
         res.sendJSON({sccess:"Praveen kumar", method: req.getMethod(), query: req.getQueryParams()})
     }
 
-    @Get('/test/sss/:ss')
+    @Get('/users/:id')
     getUsers(req: ChocoRequest, res: ChocoResponse) {
-        res.sendJSON({sccess:"Praveen kuma hanesh", params: req.getParams().getValue('ss')})
+        res.sendJSON({sccess:"Praveen kuma hanesh", params: req.getParams().getValue('id', Number)})
     }
 
 }
