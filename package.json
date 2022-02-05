@@ -7,7 +7,7 @@
   "scripts": {
     "build": "tsc --project ./",
     "watch": "tsc --project ./ -w",
-    "dev": "nodemon ./lib/index.js"
+    "dev": "nodemon ./lib/test.js"
   },
   "files": [
     "./lib/"
