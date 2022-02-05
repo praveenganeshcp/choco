@@ -1,5 +1,6 @@
 import { createServer } from 'http';
 import { ChocoRequest, ChocoResponse } from '../models';
+import { Params } from '../models/params';
 import { findHandler } from './find-handler';
 
 export const httpServer = createServer((req, res) => {
@@ -15,12 +16,11 @@ export const httpServer = createServer((req, res) => {
             return;
         }
 
-        const request = new ChocoRequest(req);
-        const response = new ChocoResponse(res);
-
-        const routeHandler = findHandler(url, method);
-        if(routeHandler) {
-            routeHandler(request, response);
+        const result = findHandler(url, method);
+        if(result && result.handler) {
+            const request = new ChocoRequest(req, new Params(result.urlParams));
+            const response = new ChocoResponse(res);
+            result.handler(request, response);
         }
         else {
             res.setHeader('Content-Type', 'application/json').write(JSON.stringify({ message: `Handler not found for ${method} : ${url}` }));

@@ -1,13 +1,20 @@
 import { IncomingMessage } from "http"
+import { Params } from "./params";
 import { QueryParams } from "./query";
 
 export class ChocoRequest {
     private request: IncomingMessage;
     private queryParams: QueryParams;
+    private urlParams: Params;
     
-    constructor(request: IncomingMessage) {
+    constructor(request: IncomingMessage, urlParams: Params) {
         this.request = request;
         this.queryParams = this.extractQueryParams();
+        this.urlParams = urlParams;
+    }
+
+    getParams() {
+        return this.urlParams;
     }
 
     getMethod() {
