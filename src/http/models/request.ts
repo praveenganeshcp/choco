@@ -1,8 +1,9 @@
 import { IncomingMessage } from "http"
+import { QueryParams } from "./query";
 
 export class ChocoRequest {
     private request: IncomingMessage;
-    private queryParams: any;
+    private queryParams: QueryParams;
     
     constructor(request: IncomingMessage) {
         this.request = request;
@@ -24,7 +25,7 @@ export class ChocoRequest {
         for(let key of urlSearchParams.keys()) {
             query[key] = urlSearchParams.get(key)
         }
-        return query;
+        return new QueryParams(query);
     }
 
     
