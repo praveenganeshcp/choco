@@ -5,7 +5,7 @@ class UserController {
 
     @Get('/test')
     getUser(req: ChocoRequest, res: ChocoResponse) {
-        res.sendJSON({sccess:"ello", method: req.getMethod()})
+        res.sendJSON({sccess:"Praveen", method: req.getMethod()})
     }
 }
 
