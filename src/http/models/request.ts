@@ -6,15 +6,21 @@ export class ChocoRequest {
     private request: IncomingMessage;
     private queryParams: QueryParams;
     private urlParams: Params;
+    private body: any;
     
-    constructor(request: IncomingMessage, urlParams: Params) {
+    constructor(request: IncomingMessage, body: any, urlParams: Params) {
         this.request = request;
         this.queryParams = this.extractQueryParams();
+        this.body = body;
         this.urlParams = urlParams;
     }
 
     getParams() {
         return this.urlParams;
+    }
+
+    getBody() {
+        return this.body;
     }
 
     getMethod() {

@@ -1,4 +1,4 @@
-import { httpServer, Get, ChocoRequest, ChocoResponse } from './index';
+import { httpServer, Get, Post, ChocoRequest, ChocoResponse } from './index';
 
 class UserController {
 
@@ -10,6 +10,11 @@ class UserController {
     @Get('/users/:id')
     getUsers(req: ChocoRequest, res: ChocoResponse) {
         res.sendJSON({user: null, params: req.getParams().getValue('id')})
+    }
+
+    @Post('/users')
+    createUser(req: ChocoRequest, res: ChocoResponse) {
+        res.sendJSON(req.getBody())
     }
 
 }
