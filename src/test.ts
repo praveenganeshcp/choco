@@ -4,19 +4,21 @@ class UserController {
 
     @Get('/users')
     getUser(req: ChocoRequest, res: ChocoResponse) {
-        res.sendJSON({sccess:"Praveen kumar", method: req.getMethod(), query: req.getQueryParams()})
+        res.sendJSON({users: []})
     }
 
     @Get('/users/:id')
     getUsers(req: ChocoRequest, res: ChocoResponse) {
-        res.sendJSON({sccess:"Praveen kuma hanesh", params: req.getParams().getValue('id', Number)})
+        res.sendJSON({user: null, params: req.getParams().getValue('id')})
     }
 
 }
 
 httpServer.listen(3000, () => {
-    console.log('on port 3000');
+    console.log('Server listening on port 3000');
 })
 
-// /test/11/sss
-// /test/:ss
+
+/**
+ * => (req, res) => (req, res) => (req, res) => (req, res)
+ */
