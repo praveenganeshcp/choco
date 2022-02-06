@@ -1,5 +1,5 @@
 import { createServer } from 'http';
-import { ChocoRequest, ChocoResponse } from '../models';
+import { ChocoRequest, ChocoResponse, RequestMethod } from '../models';
 import { Params } from '../models/params';
 import { findHandler } from './find-handler';
 
@@ -7,9 +7,9 @@ export const httpServer = createServer((req, res) => {
     try {
         let { url, method } = req;
         url = url as string;
-        method = method as string;
+        method = method as RequestMethod;
        
-        const supportedMethods = ['GET', 'POST', 'PUT', 'DELETE'];
+        const supportedMethods: string[] = [RequestMethod.GET , RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE];
         if(!supportedMethods.includes(method)) {
             res.setHeader('Content-Type', 'application/json').write(JSON.stringify({ message: `${method} not supported` }));
             res.end();
