@@ -24,6 +24,11 @@ class UserController {
     getUser(req: ChocoRequest, res: ChocoResponse) {
         res.sendJSON({user: null, userId: req.getParams().getValue('id')})
     }
+    
+    @Post('/users')
+    createUser(req: ChocoRequest, res: ChocoResponse) {
+        res.sendJSON(req.getBody())
+    }
 
 }
 
