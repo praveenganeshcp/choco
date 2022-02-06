@@ -26,7 +26,8 @@ export const httpServer = createServer((req, res) => {
                 const request = new ChocoRequest(req, JSON.parse(reqBody), new Params(result.urlParams));
                 const response = new ChocoResponse(res);
                 if(result.handler) {
-                    result.handler(request, response);
+                    const requestHandler = result.handler;
+                    requestHandler(request, response);
                 }
                 else {
                     res.setHeader('Content-Type', 'application/json').write(JSON.stringify({ message: `Handler not found for ${method} : ${url}` }));
