@@ -2,7 +2,7 @@
 
 # choco
 
-## REST API Framework for Typescript and Javascript
+### REST API Framework for Typescript
 
 This framework is built from scratch using native node.js modules
 
