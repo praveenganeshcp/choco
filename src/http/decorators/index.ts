@@ -1,4 +1,4 @@
-export { Delete, deletetMapping } from './delete';
+export { Delete, deleteMapping } from './delete';
 export { Get, getMapping } from './get';
 export { Post, postMapping } from './post';
 export { Put, putMapping } from './put'
