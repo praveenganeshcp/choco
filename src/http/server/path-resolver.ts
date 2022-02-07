@@ -1,4 +1,4 @@
-import { deletetMapping, getMapping, postMapping, putMapping } from "../decorators";
+import { deleteMapping, getMapping, postMapping, putMapping } from "../decorators";
 import { HttpHandler } from "../models";
 
 export class PathResolver {
@@ -44,7 +44,7 @@ export class PathResolver {
     }
 
     findDeleteHandler(path: string) {
-        return this.findMatchingHandler(path, deletetMapping);
+        return this.findMatchingHandler(path, deleteMapping);
     }
 
     findPutHandler(path: string) {

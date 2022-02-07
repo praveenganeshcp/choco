@@ -11,8 +11,8 @@ export const httpServer = createServer((req, res) => {
        
         const supportedMethods: string[] = [RequestMethod.GET , RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE];
         if(!supportedMethods.includes(method)) {
-            res.setHeader('Content-Type', 'application/json').write(JSON.stringify({ message: `${method} not supported` }));
-            res.end();
+            res.writeHead(400, {'Content-Type': 'application/json'});
+            res.end(JSON.stringify({ message: `${method} not supported` }));
             return;
         }
 
@@ -30,14 +30,14 @@ export const httpServer = createServer((req, res) => {
                     requestHandler(request, response);
                 }
                 else {
-                    res.setHeader('Content-Type', 'application/json').write(JSON.stringify({ message: `Handler not found for ${method} : ${url}` }));
-                    res.end();
+                    res.writeHead(404, {'Content-Type': 'application/json'});
+                    res.end(JSON.stringify({ message: `Handler not found for ${method} : ${url}`}));
                 }
             })
         }
         else {
-            res.setHeader('Content-Type', 'application/json').write(JSON.stringify({ message: `Handler not found for ${method} : ${url}` }));
-            res.end();
+            res.writeHead(404, {'Content-Type': 'application/json'});
+            res.end(JSON.stringify({ message: `Handler not found for ${method} : ${url}`}));
         }
     }
     catch(err) {

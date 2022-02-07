@@ -1,4 +1,4 @@
-import { deletetMapping, getMapping, postMapping, putMapping } from ".";
+import { deleteMapping, getMapping, postMapping, putMapping } from ".";
 
 
 export function RestController(url: string) {
@@ -23,7 +23,7 @@ export function RestController(url: string) {
                 postMethodClassRoutes.push(key);
             }
         }) 
-        deletetMapping.forEach((route, key) => {
+        deleteMapping.forEach((route, key) => {
             if(route.constructorFun == constrcutorFn) {
                 deleteMethodClassRoutes.push(key);
             }
@@ -39,13 +39,13 @@ export function RestController(url: string) {
             }
         })
         deleteMethodClassRoutes.forEach(routeUrl => {
-            const route = deletetMapping.get(routeUrl);
+            const route = deleteMapping.get(routeUrl);
             if(route) {
-                deletetMapping.set(url+routeUrl, {
+                deleteMapping.set(url+routeUrl, {
                     constructorFun: route.constructorFun,
                     handler: route.handler.bind(context),
                 })
-                deletetMapping.delete(routeUrl);
+                deleteMapping.delete(routeUrl);
             }
         })
         postMethodClassRoutes.forEach(routeUrl => {
