@@ -11,30 +11,45 @@ This framework is built from scratch using native node.js modules
 > A simple HTTP controller written using choco
 
 ```
-import { httpServer, Get, ChocoRequest, ChocoResponse } from './index';
+import { httpServer, Get, Post, ChocoRequest, ChocoResponse, Delete, Put, RestController, Provider, Inject } from './index';
 
-class UserController {
-
-    @Get('/users')
-    getUsers(req: ChocoRequest, res: ChocoResponse) {
-        res.sendJSON({users: []})
+@Provider
+class UserService {
+    fetchUsers() {
+        return []
     }
+}
 
-    @Get('/users/:id')
+@RestController('/users')
+export class UserController {
+
+    @Inject(UserService) private userService: UserService;
+
+    @Get('')
     getUser(req: ChocoRequest, res: ChocoResponse) {
-        res.sendJSON({user: null, userId: req.getParams().getValue('id')})
+        res.sendJSON({method: req.getMethod(), list: this.userService.fetchUsers()})
     }
-    
-    @Post('/users')
+
+    @Put('')
+    editUsers(req: ChocoRequest, res: ChocoResponse) {
+        res.sendJSON({method: req.getMethod()})
+    }
+
+    @Post('')
     createUser(req: ChocoRequest, res: ChocoResponse) {
-        res.sendJSON(req.getBody())
+        res.sendJSON({method: req.getMethod()})
+    }
+
+    @Delete('')
+    deleteUser(req: ChocoRequest, res: ChocoResponse) {
+        res.sendJSON({method: req.getMethod()})
     }
 
 }
 
-
 httpServer.listen(3000, () => {
     console.log('Server listening on port 3000');
 })
+
 
 ```
