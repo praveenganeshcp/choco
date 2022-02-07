@@ -6,12 +6,16 @@
 
 This framework is built from scratch using native node.js modules
 
-<br/>
+Core features : 
+1. Dependency Injection
+2. HTTP decorators (currently supports POST, GET, PUT, DELETE methods)
+3. Handling JSON Response.
 
+## Usage
 > A simple HTTP controller written using choco
 
 ```
-import { httpServer, Get, Post, ChocoRequest, ChocoResponse, Delete, Put, RestController, Provider, Inject } from './index';
+import { chocoServer, Get, Post, ChocoRequest, ChocoResponse, Delete, Put, RestController, Provider, Inject } from './index';
 
 @Provider
 class UserService {
@@ -19,6 +23,7 @@ class UserService {
         return []
     }
 }
+
 
 @RestController('/users')
 export class UserController {
@@ -47,7 +52,8 @@ export class UserController {
 
 }
 
-httpServer.listen(3000, () => {
+
+chocoServer.listen(3000, () => {
     console.log('Server listening on port 3000');
 })
 
