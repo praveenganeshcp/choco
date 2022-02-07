@@ -15,6 +15,10 @@ export class ChocoRequest {
         this.urlParams = urlParams;
     }
 
+    getHeader(name: string) {
+        return this.request.headers[name];
+    }
+
     getParams() {
         return this.urlParams;
     }
