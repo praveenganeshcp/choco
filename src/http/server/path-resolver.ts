@@ -29,7 +29,6 @@ export class PathResolver {
                     }
                 }
                 if(isPathMatched) {
-                    console.log(`${key} pth matched`);
                     return {route: mapping.get(key), urlParams};
                 }
             }
