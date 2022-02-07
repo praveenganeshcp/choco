@@ -7,7 +7,7 @@ export class PathResolver {
         return url.split('/').length === path.split('/').length;
     }
 
-    private findMatchingHandler(path: string, mapping: Map<string, HttpHandler>) {
+    private findMatchingHandler(path: string, mapping: Map<string, {constructorFun: Function, handler: HttpHandler}>) {
         for(let key of mapping.keys()) {
             if(this.isPathAndURLSameLength(key, path)) {
                 const pathSegmentArray = path.split('/');
@@ -30,7 +30,7 @@ export class PathResolver {
                 }
                 if(isPathMatched) {
                     console.log(`${key} pth matched`);
-                    return {handler: mapping.get(key), urlParams};
+                    return {route: mapping.get(key), urlParams};
                 }
             }
         }

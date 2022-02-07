@@ -17,7 +17,7 @@ export const httpServer = createServer((req, res) => {
         }
 
         const result = findHandler(url, method);
-        if(result && result.handler) {
+        if(result && result.route) {
             let reqBody = '';
             req.on('data', (chunk: Buffer) => {
                 reqBody += chunk.toString();
@@ -25,8 +25,8 @@ export const httpServer = createServer((req, res) => {
             req.on('close', () => {
                 const request = new ChocoRequest(req, JSON.parse(reqBody), new Params(result.urlParams));
                 const response = new ChocoResponse(res);
-                if(result.handler) {
-                    const requestHandler = result.handler;
+                if(result.route) {
+                    const requestHandler = result.route.handler;
                     requestHandler(request, response);
                 }
                 else {

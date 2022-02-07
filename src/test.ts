@@ -1,20 +1,35 @@
-import { httpServer, Get, Post, ChocoRequest, ChocoResponse } from './index';
+import { httpServer, Get, Post, ChocoRequest, ChocoResponse, Delete, Put, RestController, Provider, Inject } from './index';
 
-class UserController {
+@Provider
+class UserService {
+    fetchUsers() {
+        return []
+    }
+}
 
-    @Get('/users')
+@RestController('/users')
+export class UserController {
+
+    @Inject(UserService) private userService: UserService;
+
+    @Get('')
     getUser(req: ChocoRequest, res: ChocoResponse) {
-        res.sendJSON({users: []})
+        res.sendJSON({users: req.getMethod(), list: this.userService.fetchUsers()})
     }
 
-    @Get('/users/:id')
-    getUsers(req: ChocoRequest, res: ChocoResponse) {
-        res.sendJSON({user: null, params: req.getParams().getValue('id')})
+    @Put('')
+    editUsers(req: ChocoRequest, res: ChocoResponse) {
+        res.sendJSON({user: req.getMethod()})
     }
 
-    @Post('/users')
+    @Post('')
     createUser(req: ChocoRequest, res: ChocoResponse) {
-        res.sendJSON({name: req.getBody().namee})
+        res.sendJSON({name: req.getMethod()})
+    }
+
+    @Delete('')
+    deleteUser(req: ChocoRequest, res: ChocoResponse) {
+        res.sendJSON({name: req.getMethod()})
     }
 
 }
