@@ -15,7 +15,7 @@ export class ConsoleLogger {
     private log(level: LOG_LEVEL, message: string) {
         const currentTimeStamp = new Date();
         const timeStamp = `${currentTimeStamp.getDate()}-${currentTimeStamp.getMonth()}-${currentTimeStamp.getFullYear()} ${currentTimeStamp.getHours()}:${currentTimeStamp.getMinutes()}:${currentTimeStamp.getSeconds()}`;
-        console.log(`[${timeStamp}] ${this.context} ${level} : ${message}`)
+        console.log(`[${timeStamp}] ${this.context} ${level} : ${message}`);
     }
 
     setContext(context: string) {
@@ -28,5 +28,13 @@ export class ConsoleLogger {
 
     info(message: string) {
         this.log(LOG_LEVEL.INFO, message);
+    }
+
+    debug(message: string) {
+        this.log(LOG_LEVEL.DEBUG, message);
+    }
+
+    warning(message: string) {
+        this.log(LOG_LEVEL.WARNING, message);
     }
 }
