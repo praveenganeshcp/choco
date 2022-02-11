@@ -1,6 +1,6 @@
 import { chocoServer, Get, Post, ChocoRequest, ChocoResponse, Delete, Put, RestController, Provider, Inject } from './index';
 
-@Provider
+@Provider(UserService.name)
 class UserService {
     fetchUsers() {
         return []
@@ -10,7 +10,7 @@ class UserService {
 @RestController('/users')
 export class UserController {
 
-    @Inject(UserService) private userService: UserService;
+    @Inject(UserService.name) private userService: UserService;
 
     @Get('')
     getUser(req: ChocoRequest, res: ChocoResponse) {
