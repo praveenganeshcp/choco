@@ -26,7 +26,7 @@ export class UserController {
 
     @Put('')
     editUsers(req: ChocoRequest, res: ChocoResponse) {
-        res.sendJSON({method: req.getMethod()})
+        res.sendJSON({method: req.getMethod(), value: this.config.get('test')})
     }
 
     @Post('')
