@@ -1,4 +1,4 @@
-import { chocoServer, Get, Post, ChocoRequest, ChocoResponse, Delete, Put, RestController, Provider, Inject } from './index';
+import { chocoServer, Get, Post, ChocoRequest, ChocoResponse, Delete, Put, RestController, Provider, Inject, ConsoleLogger } from './index';
 
 @Provider(UserService.name)
 class UserService {
@@ -10,10 +10,16 @@ class UserService {
 @RestController('/users')
 export class UserController {
 
+    @Inject(ConsoleLogger.name) private logger: ConsoleLogger;
     @Inject(UserService.name) private userService: UserService;
+
+    constructor() {
+        this.logger.setContext(UserController.name)
+    }
 
     @Get('')
     getUser(req: ChocoRequest, res: ChocoResponse) {
+        this.logger.info('test')
         res.sendJSON({method: req.getMethod(), list: this.userService.fetchUsers()})
     }
 
