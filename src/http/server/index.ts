@@ -23,7 +23,7 @@ export const httpServer = createServer((req, res) => {
                 reqBody += chunk.toString();
             })
             req.on('close', () => {
-                const request = new ChocoRequest(req, JSON.parse(reqBody), new Params(result.urlParams));
+                const request = new ChocoRequest(req, JSON.parse(reqBody ? reqBody : '{}'), new Params(result.urlParams));
                 const response = new ChocoResponse(res);
                 if(result.route) {
                     const requestHandler = result.route.handler;
