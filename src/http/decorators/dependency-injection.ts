@@ -27,7 +27,6 @@ export function Inject(token: string) {
     if(! dependencyInjectionMappings.has(token)) {
         throw new Error(`No provider registered for the token ${token}`);
     }
-    console.log(`Resolving dependency ${token}`);
     const result = dependencyInjectionMappings.get(token);
     return (target: any, propKey: string) => {
         Object.defineProperty(target, propKey, {
