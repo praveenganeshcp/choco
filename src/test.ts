@@ -1,6 +1,6 @@
-import { chocoServer, Get, Post, ChocoRequest, ChocoResponse, Delete, Put, RestController, Provider, Inject, ConsoleLogger } from './index';
+import { chocoServer, Get, Post, ChocoRequest, ChocoResponse, Delete, Put, RestController, Provider, Inject, ConsoleLogger, SCOPE } from './index';
 
-@Provider(UserService.name)
+@Provider(UserService.name, SCOPE.SINGLETON)
 class UserService {
     fetchUsers() {
         return []
@@ -19,7 +19,7 @@ export class UserController {
 
     @Get('')
     getUser(req: ChocoRequest, res: ChocoResponse) {
-        this.logger.info('test')
+        this.logger.info('fetching user')
         res.sendJSON({method: req.getMethod(), list: this.userService.fetchUsers()})
     }
 
@@ -38,6 +38,22 @@ export class UserController {
         res.sendJSON({method: req.getMethod()})
     }
 
+}
+
+@RestController('/projects')
+class ProjectController {
+
+    @Inject(ConsoleLogger.name) private logger: ConsoleLogger;
+
+    constructor() {
+        this.logger.setContext(ProjectController.name);
+    }
+
+    @Get('')
+    fetchProjects(req: ChocoRequest, res: ChocoResponse) {
+        this.logger.info('fetching projects')
+        res.sendJSON({projects: []})
+    }
 }
 
 chocoServer.listen(3000, () => {

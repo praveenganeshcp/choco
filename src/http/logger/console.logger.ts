@@ -1,4 +1,4 @@
-import { Provider } from "../decorators";
+import { Provider, SCOPE } from "../decorators";
 
 enum LOG_LEVEL {
     INFO = 'INFO',
@@ -7,13 +7,15 @@ enum LOG_LEVEL {
     WARNING = 'WARNING'
 }
 
-@Provider(ConsoleLogger.name)
+@Provider(ConsoleLogger.name, SCOPE.NEW)
 export class ConsoleLogger {
 
     private context: string;
 
     private log(level: LOG_LEVEL, message: string) {
-        console.log(`${new Date().toString()} ${this.context} ${level} : ${message}`)
+        const currentTimeStamp = new Date();
+        const timeStamp = `${currentTimeStamp.getDate()}-${currentTimeStamp.getMonth()}-${currentTimeStamp.getFullYear()} ${currentTimeStamp.getHours()}:${currentTimeStamp.getMinutes()}:${currentTimeStamp.getSeconds()}`;
+        console.log(`[${timeStamp}] ${this.context} ${level} : ${message}`)
     }
 
     setContext(context: string) {
