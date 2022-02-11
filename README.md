@@ -38,13 +38,11 @@ import { RestController, ChocoRequest, ChocoResponse, Get } from './index';
 export class UserController {
     
     @Get('/:id')
-    getUser(request: ChocoRequest, response: ChocoRequest) {
+    getUser(request: ChocoRequest, response: ChocoResponse) {
         response.sendJSON({user: null})
     }
 }
-
 ```
-
 ## Services
 Services contains the actual logic for processing the request. Decorating the service class with @Provider enables Dependency injection module to inject 
 service class instances to the requested controllers. Here a singleton UserService instance is registered for 'UserService' token.
@@ -54,9 +52,67 @@ import { Provider, SCOPE } from './index';
 
 @Provider(UserService.name, SCOPE.SINGLETON)
 export class UserService {
-    fetchUsers() {
-        return []
+     fetchUser() {
+        return null;
     }
 }
 
+```
+
+## Configuration
+choco provides ConfigurationService class that reads environment variables from .env file. It provides get(key) method that takes a variable name and returns the value. @Inject decorator on class property enables dependency injection to inject this singleton service instance.
+
+```
+import { Provider, SCOPE, Inject, ConfigurationService } from './index';
+
+@Provider(UserService.name, SCOPE.SINGLETON)
+export class UserService {
+
+    @Inject(ConfigurationService.name) private config: ConfigurationService;
+    
+    fetchUser() {
+        return null;
+    }
+}
+
+```
+
+
+## Sample code
+```
+import { app,  ChocoRequest, ChocoResponse, ConfigurationService, ConsoleLogger, Get, Inject, Provider, RestController, SCOPE } from './index';
+
+@Provider(UserService.name, SCOPE.SINGLETON)
+export class UserService {
+
+    @Inject(ConfigurationService.name) private config: ConfigurationService;
+
+    fetchUser() {
+        return null;
+    }
+}
+
+@RestController('/users')
+export class UserController {
+
+    @Inject(UserService.name) private userService: UserService;
+    @Inject(ConsoleLogger.name) private logger: ConsoleLogger;
+
+    constructor() {
+        this.logger.setContext(UserController.name);
+    }
+
+    @Get('/:id')
+    getUser(request: ChocoRequest, response: ChocoResponse) {
+        this.logger.info('Fetching user')
+        response.sendJSON({user: this.userService.fetchUser()});
+    }
+}
+
+const config = app.resolve(ConfigurationService.name);
+const port = config.get('port') || 3000;
+
+app.chocoServer.listen(port, () => {
+    console.log(`Server listening on port ${port}`);
+})
 ```
