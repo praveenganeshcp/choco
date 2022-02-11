@@ -1,4 +1,4 @@
-import { chocoServer, Get, Post, ChocoRequest, ChocoResponse, Delete, Put, RestController, Provider, Inject, ConsoleLogger, SCOPE, ConfigurationService } from './index';
+import { app, Get, Post, ChocoRequest, ChocoResponse, Delete, Put, RestController, Provider, Inject, ConsoleLogger, SCOPE, ConfigurationService } from './index';
 
 @Provider(UserService.name, SCOPE.SINGLETON)
 class UserService {
@@ -41,9 +41,11 @@ export class UserController {
 
 }
 
+const config = app.resolve(ConfigurationService.name);
+const port = config.get('port') || 3000;
 
-chocoServer.listen(3000, () => {
-    console.log('Server listening on port 3000');
+app.chocoServer.listen(port, () => {
+    console.log(`Server listening on port ${port}`);
 })
 
 

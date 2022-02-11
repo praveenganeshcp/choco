@@ -34,3 +34,11 @@ export function Inject(token: string) {
         })
     }
 }
+
+export function resolveDependency(token: string) {
+    if(! dependencyInjectionMappings.has(token)) {
+        throw new Error(`No provider registered for the token ${token}`);
+    }
+    const result = dependencyInjectionMappings.get(token);
+    return result?.new !== undefined ? new result.new() : result?.result
+}
