@@ -11,7 +11,7 @@ Core features :
 2. HTTP decorators (currently supports POST, GET, PUT, DELETE methods)
 3. Handling JSON Response.
 4. App Configuration (for reading environment variables from .env file)
-5. Console logger (supports error, wanring, debug, info levels)
+5. Console logger (supports error, warning, debug, info levels)
 
 # Usage
 
@@ -29,7 +29,7 @@ export class UserController {
 ```
 
 ## Request Handler
-Decorate the request handler method with anyone of the available decoratos @Get, @Post, @Put, @Delete . Pathname passed into this decorators will be suffixed with pathname provided in RestController decorator. choco provides ChocoRequest and ChocoRequest objects to read request details and write JSON response.
+Decorate the request handler method with anyone of the available decorators @Get, @Post, @Put, @Delete . Pathname passed into this decorators will be suffixed with pathname provided in RestController decorator. choco provides ChocoRequest and ChocoResponse objects to read request details and write JSON response.
 
 ```
 import { RestController, ChocoRequest, ChocoResponse, Get } from './index';
